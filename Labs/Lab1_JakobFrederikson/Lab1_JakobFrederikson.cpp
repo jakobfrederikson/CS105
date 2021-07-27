@@ -23,6 +23,7 @@
 #include <iostream>
 using namespace std;
 
+// The location class holds the positional variables for each yacht
 class Location
 {
 public:
@@ -32,8 +33,20 @@ public:
 	float longMinutes;
 	char latDirection;
 	char longDirection;
+
+public:
+	Location(int defDeg = 0, float defMin = 0.0, char defDir = '/')
+	{
+		latDegrees = defDeg;
+		longDegrees = defDeg;
+		latMinutes = defMin;
+		longMinutes = defMin;
+		latDirection = defDir;
+		longDirection = defDir;
+	}
 };
 
+// Yacht class is used to create yacht objects and gather/display information for each yacht 
 class Yacht
 {
 public:
@@ -41,10 +54,11 @@ public:
 	Location yachtLoc;
 
 public:
-	Yacht(int s = 0, Location defLocation = { 0, 0, 0.0, 0.0, '/', '/' })
+	// The variable yachtLoc is not needed in Yacht constructor as it's apart of the Location class 
+	// which already has its own constructor
+	Yacht(int s = 0)
 	{
 		serialNumber = s;
-		yachtLoc = defLocation;
 	}
 
 public:
@@ -65,7 +79,7 @@ public:
 		cin >> yachtLoc.longDirection;
 	}
 
-	// Display each yachts location and serial number.
+	// Display a yacht's location and serial number.
 	void display()
 	{
 		cout << "Serial Number: " << serialNumber << endl;
@@ -76,25 +90,27 @@ public:
 
 int main()
 {
+	// Creating three yachts
 	Yacht yachtObj[3];
+
 	cout << "[----------------------------------------]\n";
 	cout << "[           OCEAN RACE 2021-22           ]\n";
 	cout << "[----------------------------------------]\n";
 	cout << endl;
+
+	// User input is taken inside this for loop
 	for (int i = 0; i < 3; i++)
 	{
 		cout << "\n[ENTER DETAILS FOR SHIP NUMBER " << i + 1 << "]";
 		cout << "\n---------------------------------\n";
-		
-		// Yacht constructor, was conflicting so decided to comment it out
-		//Yacht(i + 1, );
 
-		// Grab yachts position details
+		// getpos() function used to get latitude and longitude details from the user
 		yachtObj[i].getpos();
-		// Set yachts serial number
+		// Set the yacht's serial number
 		yachtObj[i].serialNumber = i + 1;
 	}
 
+	// display() function used to output all yachts position details
 	cout << "\n[ALL SHIP DETAILS]";
 	cout << "\n==============\n";
 	for (int i = 0; i < 3; i++)
