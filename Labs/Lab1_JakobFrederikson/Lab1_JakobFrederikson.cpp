@@ -77,20 +77,28 @@ public:
 int main()
 {
 	Yacht yachtObj[3];
-
+	cout << "[----------------------------------------]\n";
+	cout << "[           OCEAN RACE 2021-22           ]\n";
+	cout << "[----------------------------------------]\n";
+	cout << endl;
 	for (int i = 0; i < 3; i++)
 	{
 		cout << "\n[ENTER DETAILS FOR SHIP NUMBER " << i + 1 << "]";
 		cout << "\n---------------------------------\n";
+		
+		// Yacht constructor, was conflicting so decided to comment it out
+		//Yacht(i + 1, );
 
+		// Grab yachts position details
 		yachtObj[i].getpos();
+		// Set yachts serial number
 		yachtObj[i].serialNumber = i + 1;
 	}
-	
+
 	cout << "\n[ALL SHIP DETAILS]";
 	cout << "\n==============\n";
-	for (int i = 0; i < 3; i++) 
-		yachtObj[i].display();	
+	for (int i = 0; i < 3; i++)
+		yachtObj[i].display();
 
 	return 0;
 }
