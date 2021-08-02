@@ -118,8 +118,7 @@ public:
 	int serialNumber;
 	Location locationObj;
 
-	// The variable yachtLoc is not needed in Yacht constructor as it's apart of the Location class 
-	// which already has its own constructor
+	// Yacht class constructor that increments total objects when called and sets the objects serial number at the same time.
 	Yacht()
 	{
 		totalObjects++;
@@ -150,10 +149,15 @@ int main()
 	cout << "[----------------------------------------]\n";
 	cout << endl;
 
+	cout << "Enter details for ship number one:" << endl;
 	yachtObj1.locationObj.getpos();
 	cout << endl;
+
+	cout << "Enter details for ship number two:" << endl;
 	yachtObj2.locationObj.getpos();
 	cout << endl;
+
+	cout << "Enter details for ship number three:" << endl;
 	yachtObj3.locationObj.getpos();
 	cout << endl;
 
@@ -162,22 +166,6 @@ int main()
 	yachtObj1.display();
 	yachtObj2.display();
 	yachtObj3.display();
-
-	// User input is taken inside this for loop
-	//for (int i = 0; i < 3; i++)
-	//{
-	//	cout << "\n[ENTER DETAILS FOR SHIP NUMBER " << i + 1 << "]";
-	//	cout << "\n---------------------------------\n";
-	//	// getpos() function used to get latitude and longitude details from the user
-	//	yachtObj[i].locationObj.getpos();
-	//	// Set the yacht's serial number
-	//}
-
-	// display() function used to output all yachts position details
-	/*cout << "\n[ALL SHIP DETAILS]";
-	cout << "\n==============\n";
-	for (int i = 0; i < 3; i++)
-		yachtObj[i].display();*/
 
 	return 0;
 }
