@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <sstream>
 using namespace std;
 
 enum Race { DEFAULT, HUMAN, ELF, DWARF, ORC, TROLL };
@@ -22,47 +21,27 @@ public:
 
 	string whatRace()
 	{
-		int choice;
-		bool True = true;
-
-		cout << "\t\t\t[=======================================]\n";
-		cout << "\t\t\t[Choose your characters race:           ]\n";
-		cout << "\t\t\t[1. Human                               ]\n";
-		cout << "\t\t\t[2. Elf                                 ]\n";
-		cout << "\t\t\t[3. Dwarf                               ]\n";
-		cout << "\t\t\t[4. Orc                                 ]\n";
-		cout << "\t\t\t[5. Troll                               ]\n";
-		cout << "\t\t\t[=======================================]\n";
-		do {
-			cout << "\t\t\t[Enter choice here: ";
-			cin >> choice;
-			switch (choice)
-			{
-			case 1:
-				return "Human";
-				True = false;
-				break;
-			case 2:
-				return "Elf";
-				True = false;
-				break;
-			case 3:
-				return "Dwarf";
-				True = false;
-				break;
-			case 4:
-				return "Orc";
-				True = false;
-				break;
-			case 5:
-				return "Troll";
-				True = false;
-				break;
-			default:
-				cout << "\t\t\tWrong input entered! Please enter a number between 1-5.\n\n";
-			}
-		} while (True);
-		cout << endl;
+		switch (getRace())
+		{
+		case 1:
+			return "Human";
+			break;
+		case 2:
+			return "Elf";
+			break;
+		case 3:
+			return "Dwarf";
+			break;
+		case 4:
+			return "Orc";
+			break;
+		case 5:
+			return "Troll";
+			break;
+		default:
+			return "DEFAULT";
+			break;
+		}
 	}
 
 	// GETTERS
@@ -96,7 +75,7 @@ public:
 	{
 		hitPoints = hp;
 	}
-	void getMagicPoints(int mp)
+	void setMagicPoints(int mp)
 	{
 		magicPoints = mp;
 	}
@@ -106,126 +85,73 @@ public:
 	}
 };
 
-class Warrior:private Player
+class Warrior : public Player
 {
 public:
-	void createCharacter()
+	Warrior()
 	{
-		string race, name;
-		Race r;
-
 		setHitPoints(200);
-		getMagicPoints(0);
+		setMagicPoints(0);
+	}
 
-		race = whatRace();
-		if (race == "Human")
-		{
-			r = HUMAN;
-		}
-		else if (race == "Elf")
-		{
-			r = ELF;
-		}
-		else if (race == "Dwarf")
-		{
-			r = DWARF;
-		}
-		else if (race == "Orc")
-		{
-			r = ORC;
-		}
-		else if (race == "Troll")
-		{
-			r = TROLL;
-		}
-		setRace(r);
-
+	void createCharacter()
+	{
+		string name;
 		cout << "\t\t\t[==========================]\n";
 		cout << "\t\t\t[Enter characters name: ";
 		cin >> name;
 		setName(name);
 	}
+
+	string attack()
+	{
+		return "I will destroy you with my sword!";
+	}
 };
 
-class Priest:private Player
+class Priest : public Player
 {
 public:
+	Priest()
+	{
+		setHitPoints(100);
+		setMagicPoints(200);
+	}
 	void createCharacter()
 	{
-		string race, name;
-		Race r;
-
-		setHitPoints(100);
-		getMagicPoints(200);
-
-		race = whatRace();
-		if (race == "Human")
-		{
-			r = HUMAN;
-		}
-		else if (race == "Elf")
-		{
-			r = ELF;
-		}
-		else if (race == "Dwarf")
-		{
-			r = DWARF;
-		}
-		else if (race == "Orc")
-		{
-			r = ORC;
-		}
-		else if (race == "Troll")
-		{
-			r = TROLL;
-		}
-		setRace(r);
-
+		string name; 
 		cout << "\t\t\t[==========================]\n";
 		cout << "\t\t\t[Enter characters name: ";
 		cin >> name;
 		setName(name);
 	}
+
+	string attack()
+	{
+		return "I will assault you with holy wrath!";
+	}
 };
 
-class Mage:private Player
+class Mage : public Player
 {
 public:
+	Mage()
+	{
+		setHitPoints(000);
+		setMagicPoints(200);
+	}
 	void createCharacter()
 	{
-		string race, name;
-		Race r;
-
-		setHitPoints(100);
-		getMagicPoints(200);
-
-		race = whatRace();
-		if (race == "Human")
-		{
-			r = HUMAN;
-		}
-		else if (race == "Elf")
-		{
-			r = ELF;
-		}
-		else if (race == "Dwarf")
-		{
-			r = DWARF;
-		}
-		else if (race == "Orc")
-		{
-			r = ORC;
-		}
-		else if (race == "Troll")
-		{
-			r = TROLL;
-		}
-		setRace(r);
-
+		string name;
 		cout << "\t\t\t[==========================]\n";
 		cout << "\t\t\t[Enter characters name: ";
 		cin >> name;
 		setName(name);
+	}
+
+	string attack()
+	{
+		return "I will crush you with my arcane missiles!";
 	}
 };
 
@@ -240,9 +166,14 @@ int main()
 	vector<Priest> priest;
 	vector<Mage> mage;
 
-	int choice;
+	Race test = DEFAULT;
+	int classChoice;
+	int raceChoice;
 	int characterCheck;
+
+	// For do{}while() loops.
 	bool True = true;
+	bool raceTrue = true;
 
 	do {
 		system("cls");
@@ -257,54 +188,108 @@ int main()
 		cout << "\t\t\t[4. View and finish creating characters ]\n";
 		cout << "\t\t\t[=======================================]\n";
 		cout << "\t\t\t[Enter choice here: ";
-		cin >> choice;
+		cin >> classChoice;
+		cout << endl;
 
-		switch (choice)
+		if (classChoice <= 4 && classChoice >= 1)
 		{
-		case 1:
-			w.createCharacter();
-			warrior.push_back(w);
-			cout << "\n\t\t\t[Character sucessfully created!]\n";
-			cout << "\t\t\t";
-			system("pause");
-			break;
-		case 2:
-			p.createCharacter();
-			priest.push_back(p);
-			cout << "\n\t\t\t[Character sucessfully created!]\n";
-			cout << "\t\t\t";
-			system("pause");
-			break;
-		case 3:
-			m.createCharacter();
-			mage.push_back(m);
-			cout << "\n\t\t\t[Character sucessfully created!]\n";
-			cout << "\t\t\t";
-			system("pause");
-			break;
-		case 4:
-			characterCheck = displayCharacters(warrior, priest, mage);
-			if (characterCheck == 0)
+			if (classChoice < 4)
 			{
-				char exit;
-				cout << "\n\t\t\t[You have no created characters! Exit anyway?(y/n): ";
-				cin >> exit;
-				if (towlower(exit) == 'y') {
+				do
+				{
+					cout << "\t\t\t[=======================================]\n";
+					cout << "\t\t\t[Choose your characters race:           ]\n";
+					cout << "\t\t\t[1. Human                               ]\n";
+					cout << "\t\t\t[2. Elf                                 ]\n";
+					cout << "\t\t\t[3. Dwarf                               ]\n";
+					cout << "\t\t\t[4. Orc                                 ]\n";
+					cout << "\t\t\t[5. Troll                               ]\n";
+					cout << "\t\t\t[=======================================]\n";
+					cout << "\t\t\t[Enter choice here: ";
+					cin >> raceChoice;
+					cout << endl;
+
+					switch (raceChoice)
+					{
+					case 1:
+						test = HUMAN;
+						raceTrue = false;
+						break;
+					case 2:
+						test = ELF;
+						raceTrue = false;
+						break;
+					case 3:
+						test = DWARF;
+						raceTrue = false;
+						break;
+					case 4:
+						test = ORC;
+						raceTrue = false;
+						break;
+					case 5:
+						test = TROLL;
+						raceTrue = false;
+						break;
+					default:
+						cout << "\n\t\t\tWrong input entered! Please enter a number between 1-5.\n\n";
+					}
+				} while (raceTrue);
+			}
+			switch (classChoice)
+			{
+			case 1:
+				w.createCharacter();
+				w.setRace(test);
+				warrior.push_back(w);
+				cout << "\n\t\t\t[Character sucessfully created!]\n";
+				cout << "\t\t\t";
+				system("pause");
+				break;
+			case 2:
+				p.createCharacter();
+				p.setRace(test);
+				priest.push_back(p);
+				cout << "\n\t\t\t[Character sucessfully created!]\n";
+				cout << "\t\t\t";
+				system("pause");
+				break;
+			case 3:
+				m.createCharacter();
+				m.setRace(test);
+				mage.push_back(m);
+				cout << "\n\t\t\t[Character sucessfully created!]\n";
+				cout << "\t\t\t";
+				system("pause");
+				break;
+			case 4:
+				characterCheck = displayCharacters(warrior, priest, mage);
+				if (characterCheck == 0)
+				{
+					char exit;
+					cout << "\n\t\t\t[You have no created characters! Exit anyway?(y/n): ";
+					cin >> exit;
+					if (towlower(exit) == 'y') {
+						True = false;
+						break;
+					}
+					else
+					{
+						break;
+					}
+				}
+				else if (characterCheck == 1)
+				{
 					True = false;
 					break;
 				}
-				else
-				{
-					break;
-				}
+			default:
+				cout << "\t\t\tError! Please try again.\n\n";
 			}
-			else if (characterCheck == 1)
-			{
-				True = false;
-				break;
-			}
-		default:
-			cout << "\t\t\tWrong input entered! Please enter a number between 1-4.\n\n";
+		}
+		else 
+		{
+			cout << "\n\t\t\tWrong input entered! Please enter a number between 1-4.";
 		}
 	} while (True);
 }
@@ -315,18 +300,46 @@ int displayCharacters(vector<Warrior> warrior, vector<Priest> priest, vector<Mag
 	{
 		return 0;
 	}
-	else 
+	else
 	{
 		system("cls");
+		cout << "\t\t\t[ WARRIOR LIST ]\n";
+
+		// Checking whether vectors have data or not
 		if (!warrior.empty()) {
-			cout << "\t\t\t[ WARRIOR LIST ]\n";
-			cout << "\t\t\t";
 			for (int i = 0; i < warrior.size(); i++)
 			{
+				cout << "\t\t\tI am a warrior named " << warrior[i].getName() << ". My race is " << warrior[i].whatRace() << ". My attack: " << warrior[i].attack() << endl;
 			}
+			cout << endl;
 		}
-		
+		else {
+			cout << "\t\t\tNo warrior characters found!\n\n";
+		}
 
+		cout << "\t\t\t[ PRIEST LIST ]\n";
+		if (!priest.empty()) {
+			for (int i = 0; i < priest.size(); i++)
+			{
+				cout << "\t\t\tI am a priest named " << priest[i].getName() << ". My race is " << priest[i].whatRace() << ". My attack: " << priest[i].attack() << endl;
+			}
+			cout << endl;
+		}
+		else {
+			cout << "\t\t\tNo priest characters found!\n\n";
+		}
+
+		cout << "\t\t\t[ MAGE LIST ]\n";
+		if (!mage.empty()) {
+			for (int i = 0; i < mage.size(); i++)
+			{
+				cout << "\t\t\tI am a mage named " << mage[i].getName() << ". My race is " << mage[i].whatRace() << ". My attack: " << mage[i].attack() << endl;
+			}
+			cout << endl;
+		}
+		else {
+			cout << "\t\t\tNo mage characters found!\n\n";
+		}
 		return 1;
 	}
 }
