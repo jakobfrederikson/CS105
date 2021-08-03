@@ -1,7 +1,18 @@
+//
+// Programmer: Jakob Frederikson
+// Student ID: 200729667
+//
+// Bachelor of Software Engineering
+// CS105 Development Principles II
+// Lab 2
+//
+
 #include <iostream>
 #include <vector>
+#include <string>
 using namespace std;
 
+// Race enumurator
 enum Race { DEFAULT, HUMAN, ELF, DWARF, ORC, TROLL };
 
 class Player
@@ -93,19 +104,18 @@ public:
 		setHitPoints(200);
 		setMagicPoints(0);
 	}
-
 	void createCharacter()
 	{
 		string name;
 		cout << "\t\t\t[==========================]\n";
 		cout << "\t\t\t[Enter characters name: ";
-		cin >> name;
+		cin.ignore();
+		getline(cin, name);
 		setName(name);
 	}
-
 	string attack()
 	{
-		return "I will destroy you with my sword!";
+		return "Bone Crunching Sword Swipe!";
 	}
 };
 
@@ -119,16 +129,16 @@ public:
 	}
 	void createCharacter()
 	{
-		string name; 
+		string name;
 		cout << "\t\t\t[==========================]\n";
 		cout << "\t\t\t[Enter characters name: ";
-		cin >> name;
+		cin.ignore();
+		getline(cin, name);
 		setName(name);
 	}
-
 	string attack()
 	{
-		return "I will assault you with holy wrath!";
+		return "Blinding Holy Wrath!";
 	}
 };
 
@@ -145,13 +155,13 @@ public:
 		string name;
 		cout << "\t\t\t[==========================]\n";
 		cout << "\t\t\t[Enter characters name: ";
-		cin >> name;
+		cin.ignore();
+		getline(cin, name);
 		setName(name);
 	}
-
 	string attack()
 	{
-		return "I will crush you with my arcane missiles!";
+		return "Luminous Arcane Missiles!";
 	}
 };
 
@@ -159,6 +169,9 @@ int displayCharacters(vector<Warrior> warrior, vector<Priest> priest, vector<Mag
 
 int main()
 {
+	//
+	// ALL CLASS OBJECTS
+	//
 	Warrior w;
 	Priest p;
 	Mage m;
@@ -166,14 +179,19 @@ int main()
 	vector<Priest> priest;
 	vector<Mage> mage;
 
-	Race test = DEFAULT;
+	//
+	// USER INPUT VARIABLES
+	//
+	Race r;
 	int classChoice;
 	int raceChoice;
 	int characterCheck;
 
-	// For do{}while() loops.
-	bool True = true;
-	bool raceTrue = true;
+	//
+	// LOOP CONTROLS
+	//
+	bool True = true;     // "CHARACTER CREATION" loop
+	bool raceTrue = true; // "Choose characters race" loop
 
 	do {
 		system("cls");
@@ -209,26 +227,28 @@ int main()
 					cin >> raceChoice;
 					cout << endl;
 
+					// Switch case sets the variable 'r' to the users choice in race.
+					// Later, in the 'classChoice' switch case, we set the race with setRace(r);
 					switch (raceChoice)
 					{
 					case 1:
-						test = HUMAN;
+						r = HUMAN;
 						raceTrue = false;
 						break;
 					case 2:
-						test = ELF;
+						r = ELF;
 						raceTrue = false;
 						break;
 					case 3:
-						test = DWARF;
+						r = DWARF;
 						raceTrue = false;
 						break;
 					case 4:
-						test = ORC;
+						r = ORC;
 						raceTrue = false;
 						break;
 					case 5:
-						test = TROLL;
+						r = TROLL;
 						raceTrue = false;
 						break;
 					default:
@@ -236,11 +256,18 @@ int main()
 					}
 				} while (raceTrue);
 			}
+
+			// Case 1, 2, and 3 will:
+			//		- Create the character based on their chosen class
+			//		- Set the characters race
+			//		- Push back data into the respective vector
+			//
+			// Case 4 is explained in the case itself.
 			switch (classChoice)
 			{
 			case 1:
 				w.createCharacter();
-				w.setRace(test);
+				w.setRace(r);
 				warrior.push_back(w);
 				cout << "\n\t\t\t[Character sucessfully created!]\n";
 				cout << "\t\t\t";
@@ -248,7 +275,7 @@ int main()
 				break;
 			case 2:
 				p.createCharacter();
-				p.setRace(test);
+				p.setRace(r);
 				priest.push_back(p);
 				cout << "\n\t\t\t[Character sucessfully created!]\n";
 				cout << "\t\t\t";
@@ -256,44 +283,58 @@ int main()
 				break;
 			case 3:
 				m.createCharacter();
-				m.setRace(test);
+				m.setRace(r);
 				mage.push_back(m);
 				cout << "\n\t\t\t[Character sucessfully created!]\n";
 				cout << "\t\t\t";
 				system("pause");
 				break;
 			case 4:
+				// displayCharacters() function returns 0 or 1 depending on whether the vectors are all empty(0) or not(1).
 				characterCheck = displayCharacters(warrior, priest, mage);
+
+				// If all vectors are empty, check if they want to create character or exit program.
 				if (characterCheck == 0)
 				{
-					char exit;
-					cout << "\n\t\t\t[You have no created characters! Exit anyway?(y/n): ";
+					int exit = 0;
+					cout << "\n\t\t\t[==========================================]\n";
+					cout << "\t\t\t[   You haven't created a character yet!   ]\n";
+					cout << "\t\t\t[==========================================]\n";
+					cout << "\t\t\t[ You can:                                 ]\n";
+					cout << "\t\t\t[ 1. Go back to character creation screen. ]\n";
+					cout << "\t\t\t[ 2. Exit program.                         ]\n";
+					cout << "\t\t\t[==========================================]\n";
+					cout << "\t\t\t[ Enter choice here: ";
 					cin >> exit;
-					if (towlower(exit) == 'y') {
-						True = false;
-						break;
-					}
-					else
+					if (exit == 1)
 					{
 						break;
 					}
+					else if (exit == 2)
+					{
+						True = false;
+						break;
+					}
 				}
+				// If at least one vector wasn't empty.
 				else if (characterCheck == 1)
 				{
 					True = false;
 					break;
 				}
-			default:
-				cout << "\t\t\tError! Please try again.\n\n";
 			}
 		}
-		else 
+		else
 		{
+			// Main Menu Input
 			cout << "\n\t\t\tWrong input entered! Please enter a number between 1-4.";
 		}
 	} while (True);
 }
 
+// This function will display all of the users created characters. If the user
+// has created no characters yet, it will return 0 and main() will ask the user
+// if they wish to create a character or exit the program.
 int displayCharacters(vector<Warrior> warrior, vector<Priest> priest, vector<Mage> mage)
 {
 	if (warrior.empty() && priest.empty() && mage.empty())
@@ -302,14 +343,27 @@ int displayCharacters(vector<Warrior> warrior, vector<Priest> priest, vector<Mag
 	}
 	else
 	{
-		system("cls");
-		cout << "\t\t\t[ WARRIOR LIST ]\n";
+		//
+		// This is designed so that if the user created only one type of class then they can still
+		// view their characters. For example, the user is only interested in creating warriors.
+		// They will still be able to view their created warriors whilst the priest and mage
+		// lists will output "No [class name] characters found!".
+		//
 
-		// Checking whether vectors have data or not
+		system("cls");
+
+		// WARRIOR CHARACTERS
+		cout << "\t\t\t[===============]\n";
+		cout << "\t\t\t[  WARRIOR LIST ]\n";
+		cout << "\t\t\t[===============]\n";
 		if (!warrior.empty()) {
 			for (int i = 0; i < warrior.size(); i++)
 			{
-				cout << "\t\t\tI am a warrior named " << warrior[i].getName() << ". My race is " << warrior[i].whatRace() << ". My attack: " << warrior[i].attack() << endl;
+				cout << "\t\t\tName:       " << warrior[i].getName() << endl;
+				cout << "\t\t\tRace:       " << warrior[i].whatRace() << endl;
+				cout << "\t\t\tAttack:     " << warrior[i].attack() << endl;
+				cout << "\t\t\tHit Points: " << warrior[i].getHitPoints() << " - Magic Points: " << warrior[i].getMagicPoints() << endl;
+				cout << endl;
 			}
 			cout << endl;
 		}
@@ -317,11 +371,18 @@ int displayCharacters(vector<Warrior> warrior, vector<Priest> priest, vector<Mag
 			cout << "\t\t\tNo warrior characters found!\n\n";
 		}
 
-		cout << "\t\t\t[ PRIEST LIST ]\n";
+		// PRIEST CHARACTERS
+		cout << "\t\t\t[===============]\n";
+		cout << "\t\t\t[  PRIEST LIST  ]\n";
+		cout << "\t\t\t[===============]\n";
 		if (!priest.empty()) {
 			for (int i = 0; i < priest.size(); i++)
 			{
-				cout << "\t\t\tI am a priest named " << priest[i].getName() << ". My race is " << priest[i].whatRace() << ". My attack: " << priest[i].attack() << endl;
+				cout << "\t\t\tName:       " << priest[i].getName() << endl;
+				cout << "\t\t\tRace:       " << priest[i].whatRace() << endl;
+				cout << "\t\t\tAttack:     " << priest[i].attack() << endl;
+				cout << "\t\t\tHit Points: " << priest[i].getHitPoints() << " - Magic Points: " << priest[i].getMagicPoints() << endl;
+				cout << endl;
 			}
 			cout << endl;
 		}
@@ -329,11 +390,18 @@ int displayCharacters(vector<Warrior> warrior, vector<Priest> priest, vector<Mag
 			cout << "\t\t\tNo priest characters found!\n\n";
 		}
 
-		cout << "\t\t\t[ MAGE LIST ]\n";
+		// MAGE CHARACTERS
+		cout << "\t\t\t[===============]\n";
+		cout << "\t\t\t[   MAGE LIST   ]\n";
+		cout << "\t\t\t[===============]\n";
 		if (!mage.empty()) {
 			for (int i = 0; i < mage.size(); i++)
 			{
-				cout << "\t\t\tI am a mage named " << mage[i].getName() << ". My race is " << mage[i].whatRace() << ". My attack: " << mage[i].attack() << endl;
+				cout << "\t\t\tName:       " << mage[i].getName() << endl;
+				cout << "\t\t\tRace:       " << mage[i].whatRace() << endl;
+				cout << "\t\t\tAttack:     " << mage[i].attack() << endl;
+				cout << "\t\t\tHit Points: " << mage[i].getHitPoints() << " - Magic Points: " << mage[i].getMagicPoints() << endl;
+				cout << endl;
 			}
 			cout << endl;
 		}
