@@ -6,164 +6,21 @@
 // CS105 Development Principles II
 // Lab 2
 //
+// Notes:
+// In this customised version of lab 2 I let the user choose their own attack depending on the class they choose (Warrior, priest or mage).
+// This means I got rid of the function "string attack()" in Player.h.
+// I instead replaced it with setAttack() and getAttack().
+// I still use polymorphism with the function void attack() located within Characters.h.
+//
 
+// "using namespace std" must be written before including any user created header files to function properly.
+using namespace std;
 #include <iostream>
 #include <vector>
 #include <string>
-using namespace std;
+#include "Player.h"
+#include "Characters.h"
 
-// Race enumurator
-enum Race { DEFAULT, HUMAN, ELF, DWARF, ORC, TROLL };
-
-class Player
-{
-private:
-	string name;
-	int hitPoints, magicPoints;
-	Race race;
-public:
-	Player(string defName = "DEFAULT_NAME", Race defRace = DEFAULT, int defHP = 0, int defMP = 0)
-	{
-		name = defName;
-		race = defRace;
-		hitPoints = defHP;
-		magicPoints = defMP;
-	}
-
-	string whatRace()
-	{
-		switch (getRace())
-		{
-		case 1:
-			return "Human";
-			break;
-		case 2:
-			return "Elf";
-			break;
-		case 3:
-			return "Dwarf";
-			break;
-		case 4:
-			return "Orc";
-			break;
-		case 5:
-			return "Troll";
-			break;
-		default:
-			return "DEFAULT";
-			break;
-		}
-	}
-
-	// GETTERS
-	string getName()
-	{
-		return name;
-	}
-	Race getRace()
-	{
-		return race;
-	}
-	int getHitPoints()
-	{
-		return hitPoints;
-	}
-	int getMagicPoints()
-	{
-		return magicPoints;
-	}
-
-	// SETTERS
-	void setName(string n)
-	{
-		name = n;
-	}
-	void setRace(Race r)
-	{
-		race = r;
-	}
-	void setHitPoints(int hp)
-	{
-		hitPoints = hp;
-	}
-	void setMagicPoints(int mp)
-	{
-		magicPoints = mp;
-	}
-	string attack()
-	{
-		return "No attack method defined yet!";
-	}
-};
-
-class Warrior : public Player
-{
-public:
-	Warrior()
-	{
-		setHitPoints(200);
-		setMagicPoints(0);
-	}
-	void createCharacter()
-	{
-		string name;
-		cout << "\t\t\t[==========================]\n";
-		cout << "\t\t\t[Enter characters name: ";
-		cin.ignore();
-		getline(cin, name);
-		setName(name);
-	}
-	string attack()
-	{
-		return "Bone Crunching Sword Swipe!";
-	}
-};
-
-class Priest : public Player
-{
-public:
-	Priest()
-	{
-		setHitPoints(100);
-		setMagicPoints(200);
-	}
-	void createCharacter()
-	{
-		string name;
-		cout << "\t\t\t[==========================]\n";
-		cout << "\t\t\t[Enter characters name: ";
-		cin.ignore();
-		getline(cin, name);
-		setName(name);
-	}
-	string attack()
-	{
-		return "Blinding Holy Wrath!";
-	}
-};
-
-class Mage : public Player
-{
-public:
-	Mage()
-	{
-		setHitPoints(000);
-		setMagicPoints(200);
-	}
-	void createCharacter()
-	{
-		string name;
-		cout << "\t\t\t[==========================]\n";
-		cout << "\t\t\t[Enter characters name: ";
-		cin.ignore();
-		getline(cin, name);
-		setName(name);
-	}
-	string attack()
-	{
-		return "Luminous Arcane Missiles!";
-	}
-};
 
 int displayCharacters(vector<Warrior> warrior, vector<Priest> priest, vector<Mage> mage);
 
@@ -180,18 +37,20 @@ int main()
 	vector<Mage> mage;
 
 	//
-	// USER INPUT VARIABLES
+	// USER INPUT RELATED VARIABLES 
 	//
 	Race r;
 	int classChoice;
 	int raceChoice;
 	int characterCheck;
+	int attackChoice;
 
 	//
 	// LOOP CONTROLS
 	//
-	bool True = true;     // "CHARACTER CREATION" loop
-	bool raceTrue = true; // "Choose characters race" loop
+	bool True = true;       // "CHARACTER CREATION" loop
+	bool raceTrue = true;   // "Choose characters race" loop
+	bool attackTrue = true; // "Choose characters attack" loop
 
 	do {
 		system("cls");
@@ -213,6 +72,9 @@ int main()
 		{
 			if (classChoice < 4)
 			{
+				//
+				// CHOOSE CHARACTER RACE LOOP
+				//
 				do
 				{
 					cout << "\t\t\t[=======================================]\n";
@@ -255,6 +117,52 @@ int main()
 						cout << "\n\t\t\tWrong input entered! Please enter a number between 1-5.\n\n";
 					}
 				} while (raceTrue);
+
+				//
+				// CHOOSE CHARACTER ATTACK LOOP
+				//
+				do
+				{
+					if (classChoice == 1) // If user chose WARRIOR
+					{
+						cout << "\t\t\t[=======================================]\n";
+						cout << "\t\t\t[Choose your characters attack:         ]\n";
+						cout << "\t\t\t[1. Bone crunching mace swing!          ]\n";
+						cout << "\t\t\t[2. Slicing sword swipe!                ]\n";
+						cout << "\t\t\t[3. Kidney bruising punch!              ]\n";
+						cout << "\t\t\t[=======================================]\n";
+						cout << "\t\t\t[Enter choice here: ";
+						cin >> attackChoice;
+						cout << endl;
+						attackTrue = false;
+					}
+					else if (classChoice == 2) // If user chose PRIEST
+					{
+						cout << "\t\t\t[=======================================]\n";
+						cout << "\t\t\t[Choose your characters attack:         ]\n";
+						cout << "\t\t\t[1. Blinding holy wrath!                ]\n";
+						cout << "\t\t\t[2. Desperate prayer!                   ]\n";
+						cout << "\t\t\t[3. Shadow pain!                        ]\n";
+						cout << "\t\t\t[=======================================]\n";
+						cout << "\t\t\t[Enter choice here: ";
+						cin >> attackChoice;
+						cout << endl;
+						attackTrue = false;
+					}
+					else if (classChoice == 3) // If user chose MAGE
+					{
+						cout << "\t\t\t[=======================================]\n";
+						cout << "\t\t\t[Choose your characters attack:         ]\n";
+						cout << "\t\t\t[1. Spikey frostbolt!                   ]\n";
+						cout << "\t\t\t[2. Melting fireball!                   ]\n";
+						cout << "\t\t\t[3. Luminous arcane missiles!           ]\n";
+						cout << "\t\t\t[=======================================]\n";
+						cout << "\t\t\t[Enter choice here: ";
+						cin >> attackChoice;
+						cout << endl;
+						attackTrue = false;
+					}
+				} while (attackTrue);
 			}
 
 			// Case 1, 2, and 3 will:
@@ -268,6 +176,7 @@ int main()
 			case 1:
 				w.createCharacter();
 				w.setRace(r);
+				w.setAttack(attackChoice);
 				warrior.push_back(w);
 				cout << "\n\t\t\t[Character sucessfully created!]\n";
 				cout << "\t\t\t";
@@ -276,6 +185,7 @@ int main()
 			case 2:
 				p.createCharacter();
 				p.setRace(r);
+				p.setAttack(attackChoice);
 				priest.push_back(p);
 				cout << "\n\t\t\t[Character sucessfully created!]\n";
 				cout << "\t\t\t";
@@ -284,6 +194,7 @@ int main()
 			case 3:
 				m.createCharacter();
 				m.setRace(r);
+				m.setAttack(attackChoice);
 				mage.push_back(m);
 				cout << "\n\t\t\t[Character sucessfully created!]\n";
 				cout << "\t\t\t";
@@ -353,17 +264,24 @@ int displayCharacters(vector<Warrior> warrior, vector<Priest> priest, vector<Mag
 		system("cls");
 
 		// WARRIOR CHARACTERS
-		cout << "\t\t\t[===============]\n";
-		cout << "\t\t\t[  WARRIOR LIST ]\n";
-		cout << "\t\t\t[===============]\n";
+		cout << "\t\t\t[===========================================]\n";
+		cout << "\t\t\t[                WARRIOR LIST               ]\n";
+		cout << "\t\t\t[===========================================]\n";
 		if (!warrior.empty()) {
 			for (int i = 0; i < warrior.size(); i++)
 			{
-				cout << "\t\t\tName:       " << warrior[i].getName() << endl;
-				cout << "\t\t\tRace:       " << warrior[i].whatRace() << endl;
-				cout << "\t\t\tAttack:     " << warrior[i].attack() << endl;
-				cout << "\t\t\tHit Points: " << warrior[i].getHitPoints() << " - Magic Points: " << warrior[i].getMagicPoints() << endl;
-				cout << endl;
+				int n = warrior.size();
+				cout << "\t\t\t[Name:            " << warrior[i].getName() << endl;
+				cout << "\t\t\t[Race:            " << warrior[i].whatRace() << endl;
+				cout << "\t\t\t[Attack:          " << warrior[i].attack() << endl;
+				cout << "\t\t\t[Starting health: " << warrior[i].getHitPoints() << endl;
+				cout << "\t\t\t[Attack Points:   " << warrior[i].getAttackPoints() << endl;
+				cout << "\t\t\t[Magic Points:    " << warrior[i].getMagicPoints() << endl;
+
+				if ((i + 1) != n)
+					cout << "\t\t\t[-------------------------------------------]\n"; // If there's still more characters to print, seperate them with a thin line.
+				else
+					cout << "\t\t\t[===========================================]\n"; // Otherwise, finish the list off with a thick line. This is repeated for priest and mage.
 			}
 			cout << endl;
 		}
@@ -372,17 +290,24 @@ int displayCharacters(vector<Warrior> warrior, vector<Priest> priest, vector<Mag
 		}
 
 		// PRIEST CHARACTERS
-		cout << "\t\t\t[===============]\n";
-		cout << "\t\t\t[  PRIEST LIST  ]\n";
-		cout << "\t\t\t[===============]\n";
+		cout << "\t\t\t[===========================================]\n";
+		cout << "\t\t\t[                PRIEST LIST                ]\n";
+		cout << "\t\t\t[===========================================]\n";
 		if (!priest.empty()) {
 			for (int i = 0; i < priest.size(); i++)
 			{
-				cout << "\t\t\tName:       " << priest[i].getName() << endl;
-				cout << "\t\t\tRace:       " << priest[i].whatRace() << endl;
-				cout << "\t\t\tAttack:     " << priest[i].attack() << endl;
-				cout << "\t\t\tHit Points: " << priest[i].getHitPoints() << " - Magic Points: " << priest[i].getMagicPoints() << endl;
-				cout << endl;
+				int n = priest.size();
+				cout << "\t\t\t[Name:            " << priest[i].getName() << endl;
+				cout << "\t\t\t[Race:            " << priest[i].whatRace() << endl;
+				cout << "\t\t\t[Attack:          " << priest[i].attack() << endl;
+				cout << "\t\t\t[Starting health: " << priest[i].getHitPoints() << endl;
+				cout << "\t\t\t[Attack Points:   " << priest[i].getAttackPoints() << endl;
+				cout << "\t\t\t[Magic Points:    " << priest[i].getMagicPoints() << endl;
+
+				if ((i + 1) != n)
+					cout << "\t\t\t[-------------------------------------------]\n";
+				else
+					cout << "\t\t\t[===========================================]\n";
 			}
 			cout << endl;
 		}
@@ -391,17 +316,24 @@ int displayCharacters(vector<Warrior> warrior, vector<Priest> priest, vector<Mag
 		}
 
 		// MAGE CHARACTERS
-		cout << "\t\t\t[===============]\n";
-		cout << "\t\t\t[   MAGE LIST   ]\n";
-		cout << "\t\t\t[===============]\n";
+		cout << "\t\t\t[===========================================]\n";
+		cout << "\t\t\t[                MAGE LIST                  ]\n";
+		cout << "\t\t\t[===========================================]\n";
 		if (!mage.empty()) {
 			for (int i = 0; i < mage.size(); i++)
 			{
-				cout << "\t\t\tName:       " << mage[i].getName() << endl;
-				cout << "\t\t\tRace:       " << mage[i].whatRace() << endl;
-				cout << "\t\t\tAttack:     " << mage[i].attack() << endl;
-				cout << "\t\t\tHit Points: " << mage[i].getHitPoints() << " - Magic Points: " << mage[i].getMagicPoints() << endl;
-				cout << endl;
+				int n = mage.size();
+				cout << "\t\t\t[Name:            " << mage[i].getName() << endl;
+				cout << "\t\t\t[Race:            " << mage[i].whatRace() << endl;
+				cout << "\t\t\t[Attack:          " << mage[i].attack() << endl;
+				cout << "\t\t\t[Starting health: " << mage[i].getHitPoints() << endl;
+				cout << "\t\t\t[Attack Points:   " << mage[i].getAttackPoints() << endl;
+				cout << "\t\t\t[Magic Points:    " << mage[i].getMagicPoints() << endl;
+
+				if ((i + 1) != n)
+					cout << "\t\t\t[-------------------------------------------]\n";
+				else
+					cout << "\t\t\t[===========================================]\n";
 			}
 			cout << endl;
 		}
