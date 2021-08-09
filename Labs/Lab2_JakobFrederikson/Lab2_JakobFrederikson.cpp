@@ -6,12 +6,6 @@
 // CS105 Development Principles II
 // Lab 2
 //
-// Notes:
-// In this customised version of lab 2 I let the user choose their own attack depending on the class they choose (Warrior, priest or mage).
-// This means I got rid of the function "string attack()" in Player.h.
-// I instead replaced it with setAttack() and getAttack().
-// I still use polymorphism with the function void attack() located within Characters.h.
-//
 
 // "using namespace std" must be written before including any user created header files to function properly.
 using namespace std;
