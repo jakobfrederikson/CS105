@@ -15,7 +15,6 @@ using namespace std;
 #include "Player.h"
 #include "Characters.h"
 
-
 int displayCharacters(vector<Warrior> warrior, vector<Priest> priest, vector<Mage> mage);
 
 int main()
@@ -33,7 +32,7 @@ int main()
 	//
 	// USER INPUT RELATED VARIABLES 
 	//
-	Race r;
+	Race r; // Race enum is in Player.h
 	int classChoice;
 	int raceChoice;
 	int characterCheck;
