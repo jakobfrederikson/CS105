@@ -1,8 +1,10 @@
 #pragma once
-// File Characters.h -- Holds every currently available class to the player.
-//						== Each class sets their custom hit points, attack points and magic points.
-//						== Each class also holds an attack function that sets the players attack based
-//						== on their chosen class.
+// File Characters.h  --  Holds every currently available class to the player.
+//
+//						 -Each class sets their custom hit points, attack points and magic points.
+//
+//						 -Each class also holds an attack function that sets the players attack based
+//						  on their chosen class.
 
 class Warrior : public Player
 {
