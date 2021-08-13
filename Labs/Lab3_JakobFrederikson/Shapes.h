@@ -1,5 +1,8 @@
 #pragma once
 
+// File Shapes.h -- Base class for child classes (ShapesChildren.h)
+//					You can find the overloaded function (calculateArea) in this class.
+
 void setcolor(unsigned char color)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
@@ -23,7 +26,7 @@ public:
 	{
 		switch (shape)
 		{
-		case 1:
+		case 1: // Print a square shape
 			cout << " ---------------------" << endl;
 			cout << " |                   |" << endl;
 			cout << " |                   |" << endl;
@@ -36,7 +39,7 @@ public:
 			cout << " ---------------------" << endl;
 			cout << endl;
 			break;
-		case 2:
+		case 2: // Print a rectangle shape
 			cout << " ---------------------" << endl;
 			cout << " |                   |" << endl;
 			cout << " |                   |" << endl;
@@ -44,7 +47,7 @@ public:
 			cout << " ---------------------" << endl;
 			cout << endl;
 			break;
-		case 3:
+		case 3: // Print a triangle shape
 			for (int i = 1, k = 0; i <= 5; ++i, k = 0)
 			{
 				cout << "   ";
@@ -61,7 +64,7 @@ public:
 				cout << endl;
 			}
 			break;
-		case 4:
+		case 4: // Print a circle shape
 			float r = 8;
 			float pr = 2;
 			for (int i = -r; i <= r; i++)
@@ -96,30 +99,21 @@ public:
 		{
 		case 1: // SQUARE
 			cout << "\nEnter a side length: ";
-			setcolor(2);
 			cin >> base;
-			setcolor(7);
 			result = base * base;
 			break;
 		case 2: // RECTANGLE
 			cout << "\nEnter base: ";
-			setcolor(2);
 			cin >> base;
-			setcolor(7);
 			cout << "Enter height: ";
-			setcolor(2);
 			cin >> height;
-			setcolor(7);
 			result = base * height;
 			break;
 		case 3: // TRIANGLE
 			cout << "\nEnter base: ";
-			setcolor(2);
 			cin >> base;
-			setcolor(7);
 			cout << "Enter height: ";
 			cin >> height;
-			setcolor(7);
 			result = 0.5 * (base * height);
 			break;
 		}
@@ -130,9 +124,7 @@ public:
 	{
 		double radius = 0;
 		cout << "\nEnter radius: ";
-		setcolor(2);
 		cin >> radius;
-		setcolor(7);
 		result = 3.14 * radius * radius;
 	}
 
@@ -143,7 +135,9 @@ public:
 		cout << result;
 		setcolor(7);
 		cout << endl << endl;
+		setcolor(13);
 		system("pause");
+		setcolor(7);
 		system("cls");
 	}
 };

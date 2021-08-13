@@ -19,11 +19,13 @@ using namespace std;
 
 void run_program()
 {
+	// Shape Objects
 	Square s;
 	RectangleClass r;
 	Triangle t;
 	Circle c;
 
+	// Menu controll
 	int option = 0;
 
 	do {
@@ -37,9 +39,8 @@ void run_program()
 		cout << "| [5] Exit          |" << endl;
 		cout << "|-------------------|" << endl;
 		cout << "| Enter your option: ";
-		setcolor(9); // set text color to light blue
+
 		cin >> option;
-		setcolor(7); // set text color to white
 		if (option == 5)
 		{
 			break;
@@ -67,5 +68,6 @@ void run_program()
 
 int main()
 {
+	// Runs the main menu, all program functions stem from out from this.
 	run_program();
 }

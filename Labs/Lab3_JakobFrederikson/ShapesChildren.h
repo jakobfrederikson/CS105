@@ -1,5 +1,10 @@
 #pragma once
 
+// File ShapesChildren.h -- Includes all children of the base class (Shapes.h)
+//							Each class includes the overwritten function getData();
+//							Each class has includes the function calculatePerimeter();
+//							Calculate perimeter will set variable 'result' to a different value each time based on the shapes requirements.
+
 class Square : public Shapes
 {
 public:
@@ -29,9 +34,7 @@ public:
 			cout << "| [3] Back to main menu  |" << endl;
 			cout << "|------------------------|" << endl;
 			cout << "| Enter option: ";
-			setcolor(9);
 			cin >> option;
-			setcolor(7);
 
 			switch (option)
 			{
@@ -57,21 +60,17 @@ public:
 	void calculatePerimeter()
 	{
 		cout << "\nEnter length: ";
-		setcolor(9);
 		cin >> height;
-		setcolor(7);
 		cout << "Enter width: ";
-		setcolor(9);
 		cin >> base;
-		setcolor(7);
 		result = 2 * (height + base);
-		giveResult();
 	}
+
 	void getData()
 	{
 		int option = 0;
 
-		do 
+		do
 		{
 			system("cls");
 			cout << "|----------------------|" << endl;
@@ -87,9 +86,7 @@ public:
 			cout << "| [3] Back to main menu  |" << endl;
 			cout << "|------------------------|" << endl;
 			cout << "| Enter option: ";
-			setcolor(9);
 			cin >> option;
-			setcolor(7);
 
 			switch (option)
 			{
@@ -105,7 +102,7 @@ public:
 				system("cls");
 				break;
 			}
-		} while (option != 3);		
+		} while (option != 3);
 	}
 };
 
@@ -116,17 +113,11 @@ public:
 	{
 		double side1, side2, side3;
 		cout << "\nEnter side 1 length: ";
-		setcolor(9);
 		cin >> side1;
-		setcolor(7);
 		cout << "Enter side 2 length: ";
-		setcolor(9);
 		cin >> side2;
-		setcolor(7);
 		cout << "Enter side 3 length: ";
-		setcolor(9);
 		cin >> side3;
-		setcolor(7);
 		result = side1 + side2 + side3;
 	}
 
@@ -150,9 +141,7 @@ public:
 			cout << "| [3] Back to main menu  |" << endl;
 			cout << "|------------------------|" << endl;
 			cout << "| Enter option: ";
-			setcolor(9);
 			cin >> option;
-			setcolor(7);
 
 			switch (option)
 			{
@@ -169,7 +158,7 @@ public:
 				break;
 			}
 		} while (option != 3);
-		
+
 	}
 };
 
@@ -180,9 +169,7 @@ public:
 	{
 		double radius = 0;
 		cout << "\nEnter circle radius: ";
-		setcolor(9);
 		cin >> radius;
-		setcolor(7);
 		result = 2 * 3.14 * radius;
 	}
 
@@ -206,9 +193,7 @@ public:
 			cout << "| [3] Back to main menu  |" << endl;
 			cout << "|------------------------|" << endl;
 			cout << "| Enter option: ";
-			setcolor(9);
 			cin >> option;
-			setcolor(7);
 
 			switch (option)
 			{
@@ -224,6 +209,6 @@ public:
 				system("cls");
 				break;
 			}
-		} while (option != 3);	
+		} while (option != 3);
 	}
 };
