@@ -1,5 +1,10 @@
 #pragma once
 
+void setcolor(unsigned char color)
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
+
 class Shapes
 {
 protected:
@@ -19,29 +24,30 @@ public:
 		switch (shape)
 		{
 		case 1:
-			cout << "---------------------" << endl;
-			cout << "|                   |" << endl;
-			cout << "|                   |" << endl;
-			cout << "|                   |" << endl;
-			cout << "|                   |" << endl;
-			cout << "|                   |" << endl;
-			cout << "|                   |" << endl;
-			cout << "|                   |" << endl;
-			cout << "|                   |" << endl;
-			cout << "---------------------" << endl;
+			cout << " ---------------------" << endl;
+			cout << " |                   |" << endl;
+			cout << " |                   |" << endl;
+			cout << " |                   |" << endl;
+			cout << " |                   |" << endl;
+			cout << " |                   |" << endl;
+			cout << " |                   |" << endl;
+			cout << " |                   |" << endl;
+			cout << " |                   |" << endl;
+			cout << " ---------------------" << endl;
 			cout << endl;
 			break;
 		case 2:
-			cout << "---------------------" << endl;
-			cout << "|                   |" << endl;
-			cout << "|                   |" << endl;
-			cout << "|                   |" << endl;
-			cout << "---------------------" << endl;
+			cout << " ---------------------" << endl;
+			cout << " |                   |" << endl;
+			cout << " |                   |" << endl;
+			cout << " |                   |" << endl;
+			cout << " ---------------------" << endl;
 			cout << endl;
 			break;
 		case 3:
 			for (int i = 1, k = 0; i <= 5; ++i, k = 0)
 			{
+				cout << "   ";
 				for (int space = 1; space <= 5 - i; ++space)
 				{
 					cout << "  ";
@@ -53,8 +59,8 @@ public:
 					++k;
 				}
 				cout << endl;
-				break;
 			}
+			break;
 		case 4:
 			float r = 8;
 			float pr = 2;
@@ -90,35 +96,53 @@ public:
 		{
 		case 1: // SQUARE
 			cout << "\nEnter a side length: ";
+			setcolor(2);
 			cin >> base;
+			setcolor(7);
 			result = base * base;
 			break;
 		case 2: // RECTANGLE
 			cout << "\nEnter base: ";
+			setcolor(2);
 			cin >> base;
+			setcolor(7);
 			cout << "Enter height: ";
+			setcolor(2);
 			cin >> height;
+			setcolor(7);
 			result = base * height;
 			break;
 		case 3: // TRIANGLE
 			cout << "\nEnter base: ";
+			setcolor(2);
 			cin >> base;
+			setcolor(7);
 			cout << "Enter height: ";
 			cin >> height;
+			setcolor(7);
 			result = 0.5 * (base * height);
-			break;
-		case 4: // CIRCLE
-			double radius = 0;
-			cout << "\nEnter radius: ";
-			cin >> radius;
-			result = 3.14 * radius * radius;
 			break;
 		}
 	}
 
+	// Overloaded function specifically for Circle
+	void calculateArea()
+	{
+		double radius = 0;
+		cout << "\nEnter radius: ";
+		setcolor(2);
+		cin >> radius;
+		setcolor(7);
+		result = 3.14 * radius * radius;
+	}
+
 	void giveResult()
 	{
-		cout << "\nThe result is: " << result << endl << endl;
+		cout << "\nThe result is: ";
+		setcolor(12);
+		cout << result;
+		setcolor(7);
+		cout << endl << endl;
 		system("pause");
 		system("cls");
 	}

@@ -1,4 +1,4 @@
 ﻿  Lab3_JakobFrederikson.cpp
-C:\Users\270029667\OneDrive - UP Education\Desktop\CS105\Labs\Lab3_JakobFrederikson\Shapes.h(61,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-C:\Users\270029667\OneDrive - UP Education\Desktop\CS105\Labs\Lab3_JakobFrederikson\Shapes.h(63,16): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\270029667\OneDrive - UP Education\Desktop\CS105\Labs\Lab3_JakobFrederikson\Shapes.h(67,15): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\270029667\OneDrive - UP Education\Desktop\CS105\Labs\Lab3_JakobFrederikson\Shapes.h(69,16): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   Lab3_JakobFrederikson.vcxproj -> C:\Users\270029667\OneDrive - UP Education\Desktop\CS105\Labs\Lab3_JakobFrederikson\Debug\Lab3_JakobFrederikson.exe

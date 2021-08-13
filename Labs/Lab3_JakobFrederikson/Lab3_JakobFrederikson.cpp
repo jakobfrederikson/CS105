@@ -13,13 +13,14 @@
 
 using namespace std;
 #include <iostream>
+#include <Windows.h>
 #include "Shapes.h"
 #include "ShapesChildren.h"
 
 void run_program()
 {
 	Square s;
-	Rectangle r;
+	RectangleClass r;
 	Triangle t;
 	Circle c;
 
@@ -36,8 +37,9 @@ void run_program()
 		cout << "| [5] Exit          |" << endl;
 		cout << "|-------------------|" << endl;
 		cout << "| Enter your option: ";
+		setcolor(9); // set text color to light blue
 		cin >> option;
-
+		setcolor(7); // set text color to white
 		if (option == 5)
 		{
 			break;
