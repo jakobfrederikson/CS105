@@ -1,0 +1,4 @@
+﻿  Lab4_JakobFrederikson.cpp
+C:\Users\test\Desktop\CS105\Labs\Lab4_JakobFrederikson\Lab4_JakobFrederikson.cpp(22,7): warning C4309: 'default argument': truncation of constant value
+C:\Users\test\Desktop\CS105\Labs\Lab4_JakobFrederikson\Lab4_JakobFrederikson.cpp(62,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Lab4_JakobFrederikson.vcxproj -> C:\Users\test\Desktop\CS105\Labs\Lab4_JakobFrederikson\Debug\Lab4_JakobFrederikson.exe
