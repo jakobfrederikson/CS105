@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <stdlib.h> // for use of rand()
+#include <vector>
 using namespace std;
 
 class Alien
@@ -25,6 +26,7 @@ public:
 		gender = g;
 	}
 
+	// Getters
 	int getWeight()
 	{
 		return weight;
@@ -40,7 +42,7 @@ public:
 		return gender;
 	}
 
-	// Returns prestige. Male = 2 points, Female = 3 points
+	// Calculate a prestige value for an alien. Male = 2 points, Female = 3 points
 	int getPrestige()
 	{
 		int p = 0;
@@ -53,17 +55,17 @@ public:
 		return p;
 	}
 
-	// Breeding
+	// Breeding aliens by overloading + operator (alienN = alienX + alienY)
 	Alien operator+(const Alien& a)
 	{
 		Alien alien;
 		
 		srand(time(0));
-		int randGender = 1 + (rand() % 2); // randomly pick the numbers 1 or 2 to assign to randGender
+		int randGender = 1 + (rand() % 2); // pick number between 1 or 2
 
 		alien.weight = (this->weight + a.weight) / 2;
 		alien.height = (this->height + a.height) / 2;
-		if (randGender == 1) 
+		if (randGender == 1) // assign alien gender based on the random number 
 		{
 			alien.gender = 'm';
 		}
@@ -83,6 +85,7 @@ public:
 		else
 			return false;
 	}
+
 	bool operator!=(Alien& a)
 	{
 		if (this->getPrestige() != a.getPrestige())
@@ -90,6 +93,7 @@ public:
 		else
 			return false;
 	}
+
 	bool operator<(Alien& a)
 	{
 		if (this->getPrestige() < a.getPrestige())
@@ -97,6 +101,7 @@ public:
 		else
 			return false;
 	}
+
 	bool operator<=(Alien& a)
 	{
 		if (this->getPrestige() <= a.getPrestige())
@@ -104,6 +109,7 @@ public:
 		else
 			return false;
 	}
+
 	bool operator>(Alien& a)
 	{
 		if (this->getPrestige() > a.getPrestige())
@@ -111,6 +117,7 @@ public:
 		else
 			return false;
 	}
+
 	bool operator>=(Alien& a)
 	{
 		if (this->getPrestige() >= a.getPrestige())
@@ -120,7 +127,7 @@ public:
 	}
 
 	// Assign one Alien object to another Alien object through overload of assignment operator
-	void operator=(Alien& a)
+	void operator=(const Alien& a)
 	{
 		this->gender = a.gender;
 		this->height = a.height;
@@ -128,23 +135,23 @@ public:
 	}
 };
 
+// Programs main menu and functionality
 void run_program()
 {
 	int menuChoice = 0;
 
-	// create pairs
+	// vector which will hold all created aliens
+	vector<Alien> alien_vector;
+
 	Alien alien1(60, 120, 'm');
 	Alien alien2(25, 50, 'f');
 	Alien alien3(65, 130, 'm');
 	Alien alien4(30, 60, 'f');
 
-	// create offspring
-	Alien alien5 = alien1 + alien2;
-	Alien alien6 = alien3 + alien4;
-
 	// run main menu
 	do
 	{
+		system("cls");
 		cout << "Main Menu:" << endl;
 		cout << "[1] Create Alien Pairs" << endl;
 		cout << "[2] Create offspring" << endl;
@@ -156,22 +163,63 @@ void run_program()
 
 		switch (menuChoice)
 		{
-		case 1:
-			// create pairs?
+		case 1: // CREATE ALIEN PAIRS
+			if (alien_vector.empty())
+			{
+				// lab instructions ask to let user create 4 aliens
+				// I push back the previously constructed alien objects into this vector...
+				alien_vector.push_back(alien1);
+				alien_vector.push_back(alien2);
+				alien_vector.push_back(alien3);
+				alien_vector.push_back(alien4);
+				cout << "\nAliens pairs created!\n";
+				system("pause");
+			}
+			else
+			{
+				cout << "\n\nAlien pairs have already been created!\n\n";
+				system("pause");
+			}
 			break;
-		case 2:
-			// create off spring?
+		case 2: // CREATE OFFSPRING
+			if (alien_vector.empty())
+			{
+				cout << "\n\nYou need alien pairs before producing offspring!\n\n";
+				system("pause");
+			}
+			else
+			{
+				Alien alien5 = alien1 + alien2;
+				Alien alien6 = alien3 + alien4;
+
+				alien_vector.push_back(alien5);
+				alien_vector.push_back(alien6);
+
+				cout << "\n\nAlien offspring created!\n\n";
+				system("pause");
+			}
 			break;
-		case 3:
-			// boolalpha will print out boolean values as words (true, false) rather than numbers (1,0)
-			cout << boolalpha; 
-			cout << "Alien5 == Alien6 ? " << (alien5 == alien6) << endl;
-			cout << "Alien5 != Alien6 ? " << (alien5 != alien6) << endl;
-			cout << "Alien5 > Alien6  ? " << (alien5 > alien6) << endl;
-			cout << "Alien5 >= Alien6 ? " << (alien5 >= alien6) << endl;
-			cout << "Alien5 < Alien6  ? " << (alien5 < alien6) << endl;
-			cout << "Alien5 <= Alien6 ? " << (alien5 <= alien6) << endl;
-			cout << endl;
+		case 3: // COMPARE OFFSPRING PRESTIGE
+			if (!alien_vector.empty())
+			{
+				// boolalpha will print out boolean values as words (true, false) rather than numbers (1,0)
+				cout << boolalpha;
+				cout << "Alien5 == Alien6  ? " << (alien_vector[4] == alien_vector[5]) << endl;
+				cout << "Alien5 != Alien6  ? " << (alien_vector[4] != alien_vector[5]) << endl;
+				cout << "Alien5 >  Alien6  ? " << (alien_vector[4] > alien_vector[5]) << endl;
+				cout << "Alien5 >= Alien6  ? " << (alien_vector[4] >= alien_vector[5]) << endl;
+				cout << "Alien5 <  Alien6  ? " << (alien_vector[4] < alien_vector[5]) << endl;
+				cout << "Alien5 <= Alien6  ? " << (alien_vector[4] <= alien_vector[5]) << endl;
+				cout << endl;
+				system("pause");
+			}
+			else
+			{
+				cout << "\n\nPlease create alien pairs/offspring first!\n\n";
+				system("pause");
+			}
+			break;
+		case 4: // EXIT
 			break;
 		default:
 			cout << "\n\nPlease enter a number between 1-4. Thank you.\n\n";
