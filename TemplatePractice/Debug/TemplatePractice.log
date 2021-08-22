@@ -1,0 +1,4 @@
+﻿  TemplatePractice.cpp
+C:\Users\test\Desktop\CS105\CPP\TemplatePractice\TemplatePractice.cpp(25,21): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\test\Desktop\CS105\CPP\TemplatePractice\TemplatePractice.cpp(25,33): warning C4305: 'initializing': truncation from 'double' to 'float'
+  TemplatePractice.vcxproj -> C:\Users\test\Desktop\CS105\CPP\TemplatePractice\Debug\TemplatePractice.exe
