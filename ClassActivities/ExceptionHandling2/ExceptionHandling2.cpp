@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+// creating a class to handle exceptions
 class Exception
 {
 public:
@@ -26,6 +27,7 @@ int main()
             cin >> i;
             if (i <= 0 || i >= 100)
             {
+                // throwing a class object
                 throw Exception("Wrong input: ", i);
             }
             else
@@ -34,8 +36,10 @@ int main()
                 flag = 1;
             }
         }
+        // catching class object
         catch (Exception e)
         {
+            // outputting its member variables
             cout << e.reason << e.num_entered << "\n\n";
         }
     } while (flag == 0);
